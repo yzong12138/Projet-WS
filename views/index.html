@@ -3,20 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
-    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/css/reset.css" />
+    <link rel="stylesheet" href="/public/css/index.css" />
 </head>
 <body>
-    <form class="form-inline">
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Things to search on dbpedia">
+<div class="title">
+    <span>Welcome to H4212pedia</span>
+</div>
+<div class="wrap" id="app">
+    <form action="" method="get">
+    <div class="search_form">
+        <div class="form_group">
+            <input type="text" class="input_txt" placeholder="Search in H4212pedia"/>
+            <button type="submit" class="input_sub">
+                Search
+            </button>
         </div>
-        <button type="button" class="btn btn-success">Search</button>
+        <div id="hotkeycontainer">
+            {{ each hotkey }}
+            <a class="hotkeys" href="#">{{ $value }}</a>
+            {{ /each }}
+        </div>
+    </div>
     </form>
-    {{each name}}
-        <h2>{{$value}}</h2>
-    {{/each}}
+</div>
+    <script src="/node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        $(function (){
+            $('.hotkeys').on('click',function (event){
+                $('.input_txt').val($(this).text())
 
-    <script src="node_modules/jquery/dist/jquery.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+                //Ajax
+
+            })
+        })
+    </script>
 </body>
 </html>

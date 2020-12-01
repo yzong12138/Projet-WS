@@ -3,7 +3,7 @@ var router = express.Router()
 
 router.get('/',function (req,res){
     res.render('index.html',{
-        name:['a','b','c','d','e']
+        hotkey:['aaa','bbb','ccc','ddd','eee']
     })
 })
 
