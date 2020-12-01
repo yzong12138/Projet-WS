@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+</head>
+<body>
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Things to search on dbpedia">
+        </div>
+        <button type="button" class="btn btn-success">Search</button>
+    </form>
+    {{each name}}
+        <h2>{{$value}}</h2>
+    {{/each}}
+
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>
