@@ -14,7 +14,12 @@
     <form action="" method="get">
     <div class="search_form">
         <div class="form_group">
-            <input type="text" class="input_txt" placeholder="Search in H4212pedia"/>
+            <input type="text" class="input_txt" list="suggestions" placeholder="Search in H4212pedia"/>
+            <datalist id="suggestions">
+                {{each suggestions}}
+                <option value="{{ $value }}">
+                {{/each}}
+            </datalist>
             <button type="submit" class="input_sub">
                 Search
             </button>
