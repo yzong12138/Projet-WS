@@ -8,4 +8,7 @@ router.get('/',function (req,res){
     })
 })
 
+router.get('/searchquery',function (req,res){
+})
+
 module.exports = router

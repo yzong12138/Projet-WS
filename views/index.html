@@ -11,10 +11,10 @@
     <span>Welcome to H4212pedia</span>
 </div>
 <div class="wrap" id="app">
-    <form action="" method="get">
+    <form action="/searchquery" method="get">
     <div class="search_form">
         <div class="form_group">
-            <input type="text" class="input_txt" list="suggestions" placeholder="Search in H4212pedia"/>
+            <input type="text" name="search" class="input_txt" list="suggestions" placeholder="Search in H4212pedia"/>
             <datalist id="suggestions">
                 {{each suggestions}}
                 <option value="{{ $value }}">
@@ -37,9 +37,7 @@
         $(function (){
             $('.hotkeys').on('click',function (event){
                 $('.input_txt').val($(this).text())
-
                 //Ajax
-
             })
         })
     </script>
