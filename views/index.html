@@ -17,7 +17,7 @@
             <input type="text" name="search" class="input_txt" list="suggestions" placeholder="Search in H4212pedia"/>
             <datalist id="suggestions">
                 {{each suggestions}}
-                <option value="{{ $value }}">
+                <option value="{{ $value.country.simpleName }}">
                 {{/each}}
             </datalist>
             <button type="submit" class="input_sub">
@@ -25,7 +25,7 @@
             </button>
         </div>
         <div id="hotkeycontainer">
-            {{ each hotkey }}
+            {{ each hotkeys }}
             <a class="hotkeys" href="#">{{ $value }}</a>
             {{ /each }}
         </div>
@@ -39,6 +39,9 @@
                 $('.input_txt').val($(this).text())
                 //Ajax
             })
+
+
+
         })
     </script>
 </body>

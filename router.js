@@ -3,9 +3,25 @@ var router = express.Router()
 var dbpediaAPI = require('./service/dbpediaAPI')
 
 router.get('/',function (req,res){
-    res.render('index.html',{
-        hotkey:['aaa','bbb','ccc','ddd','eee'],
-        suggestions:['France','Allemagne','Chine','Italie']
+
+    // Get all the countries and then put them in the data list.
+    dbpediaAPI.sparqlGet('SELECT %3Fcountry WHERE {\n' +
+        '%3Fcountry a dbo:Country\n' +
+        '}',function (err,data){
+        if(err){
+            return res.status(500).send('Internal Error')
+        }
+        var result = data.results.bindings
+        for(var i = 0; i < result.length; i++) {
+            var listStrings = result[i].country.value.split('/')
+            var lastString = listStrings[listStrings.length - 1]
+            result[i].country.simpleName = lastString
+        }
+        console.log(result)
+        res.render('index.html',{
+            suggestions:result,
+            hotkeys:['France','China','Ottoman_Empire','Roman_Empire']
+        })
     })
 })
 
