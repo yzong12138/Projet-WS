@@ -26,6 +26,17 @@ app.use(router)
 //     console.log(data.results.bindings[1])
 // })
 
+// Page for 404 not found
+app.use(function (req,res){
+    res.render('404.html')
+})
+
+// Throw errors
+app.use(function (err,req,res,next){
+    res.status(500).json(err)
+})
+
+
 app.listen(3000,function (){
     console.log('The server is running on the port 3000....')
 })
