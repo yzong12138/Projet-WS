@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.longname }}</title>
+    <link rel="stylesheet" href="/public/css/Country.css">
+</head>
+<body>
+    <div class="container">
+        <div id="img">
+            <img src="{{data.flagUrl}}" alt="">
+        </div>
+        <span id="longname">{{ data.longname }}</span>
+        <table>
+            <tr>
+                <td>Capital</td>
+                <td>{{ data.capital }}</td>
+            </tr>
+            <tr>
+                <td>Area</td>
+                <td>{{ data.area }}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

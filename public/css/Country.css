@@ -1,0 +1,28 @@
+.container{
+    width: 50%;
+    margin: 50px auto;
+}
+
+.container img{
+    width: 300px;
+    margin: 0 auto;
+    display: block;
+}
+.container #longname{
+    font-weight: bold;
+    font-size: 30px;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.container table{
+    margin: 20px auto;
+    width: 60%;
+}
+
+.container table td{
+    border: 1px solid #41a1cb;
+    text-align: center;
+    border-collapse:collapse;
+}
