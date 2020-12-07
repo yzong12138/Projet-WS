@@ -5,6 +5,7 @@
     <title>Search</title>
     <link rel="stylesheet" href="/public/css/reset.css" />
     <link rel="stylesheet" href="/public/css/index.css" />
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
 </head>
 <body>
 <div class="title">
@@ -20,15 +21,25 @@
                 <option value="{{ $value.country.simpleName }}">
                 {{/each}}
             </datalist>
+
+
+
             <button type="submit" class="input_sub">
                 Search
             </button>
+
+            <label class="radio-inline">
+                <input type="radio" name="countryorcity" id="inlineRadio1" value="country"> Country
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="countryorcity" id="inlineRadio2" value="city"> City
+            </label>
         </div>
-        <div id="hotkeycontainer">
-            {{ each hotkeys }}
-            <a class="hotkeys" href="#">{{ $value }}</a>
-            {{ /each }}
-        </div>
+<!--        <div id="hotkeycontainer">-->
+<!--            {{ each hotkeys }}-->
+<!--            <a class="hotkeys" href="#">{{ $value }}</a>-->
+<!--            {{ /each }}-->
+<!--        </div>-->
     </div>
     </form>
 </div>

@@ -7,19 +7,56 @@
 </head>
 <body>
     <div class="container">
+        {{ if data.flagUrl }}
         <div id="img">
             <img src="{{data.flagUrl}}" alt="">
         </div>
+        {{ /if }}
+
+
         <span id="longname">{{ data.longname }}</span>
+
+        {{ if data.capital }}
+        <div class="abstract">{{ data.abstract }}</div>
+        {{ /if }}
         <table>
+            {{ if data.capital }}
             <tr>
                 <td>Capital</td>
-                <td>{{ data.capital }}</td>
+                <td><a href="{{ data.capital.uri }}">{{ data.capital.name }}</a></td>
             </tr>
+            {{ /if }}
+
+            {{ if data.capital }}
             <tr>
                 <td>Area</td>
-                <td>{{ data.area }}</td>
+                <td>{{ data.area }} km²</td>
             </tr>
+            {{/if}}
+
+            {{ if data.gov }}
+                <tr>
+                    <td>Government Type</td>
+                    <td><a href="{{data.gov.uri}}">{{ data.gov.name }}</a></td>
+                </tr>
+            {{ /if }}
+
+            {{ if data.gdp }}
+            <tr>
+                <td>GDP at year {{ data.gdpYear }}</td>
+                <td>${{ data.gdp }}, rank position: {{data.gdpRank}}</td>
+            </tr>
+            {{ /if }}
+
+
+            {{ if data.leader }}
+                {{ each data.leader}}
+                    <tr>
+                        <td>{{ $value.TitleName }}</td>
+                        <td><a href="{{ $value.leaderName.uri }}">{{ $value.leaderName.name }}</a></td>
+                    </tr>
+                {{ /each }}
+            {{ /if }}
         </table>
     </div>
 </body>

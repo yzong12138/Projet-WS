@@ -22,11 +22,19 @@ router.get('/searchquery',function (req,res,next){
     //     })
     // })
 
-    search.getInfo(query,next,function (data){
-        res.render('Country.html',{
-            data:data
+    search.getInfo(query)
+        .then(function (data) {
+            return search.getLeaderInfo(query,data)
+        },function (err){
+            next(err)
         })
-    })
+        .then(function (data){
+            res.render('Country.html',{
+                data:data
+            })
+        },function (err){
+            next(err)
+        })
 })
 
 module.exports = router
