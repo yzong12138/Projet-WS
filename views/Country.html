@@ -57,6 +57,15 @@
                     </tr>
                 {{ /each }}
             {{ /if }}
+
+            {{ if data.largestCities }}
+                {{ each data.largestCities}}
+                <tr>
+                    <td>{{ $value.cityName }}</td>
+                    <td>{{ $value.population }}</td>
+                </tr>
+                {{ /each }}
+            {{ /if }}
         </table>
     </div>
 </body>

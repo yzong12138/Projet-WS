@@ -28,6 +28,11 @@ router.get('/searchquery',function (req,res,next){
         },function (err){
             next(err)
         })
+        .then(function (data) {
+            return search.getCountryLargestCities(query,data)
+        },function (err){
+            next(err)
+        })
         .then(function (data){
             res.render('Country.html',{
                 data:data

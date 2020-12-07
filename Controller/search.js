@@ -1,8 +1,8 @@
 var dbpediaAPI = require('../service/dbpediaAPI')
-
+var wikidataAPI = require('../service/wikidataAPI')
 // A simple query of the country with just the basic description (no numbers no photos)
 module.exports.getBasicCountryInfo = function (query,next,callback){
-    dbpediaAPI.sparqlGet('SELECT %3Fproperty %3Fvalue WHERE {\n' +
+    dbpediaAPI.dbpediaSPARQLGet('SELECT %3Fproperty %3Fvalue WHERE {\n' +
         ':'+ query.search +' a dbo:Country; %3Fproperty %3Fvalue.\n' +
         '    Filter(langmatches(lang(%3Fvalue),\'EN\'))\n' +
         '}',function (err,data){
@@ -34,7 +34,7 @@ module.exports.getRelatedInfo = function (query,next,callback){
 module.exports.getInfo = function (query){
 
     return new Promise(function (resolve,reject){
-        dbpediaAPI.sparqlGet('select * Where {\n' +
+        dbpediaAPI.dbpediaSPARQLGet('select * Where {\n' +
             '%3Fcountry a dbo:Country; dbo:longName %3FLongName.\n' +
             'OPTIONAL{\n' +
             '%3Fcountry dbo:abstract %3Fabstract.\n' +
@@ -89,14 +89,14 @@ module.exports.getInfo = function (query){
 
 module.exports.getLeaderInfo = function (query,data){
     return new Promise(function (resolve, reject){
-        dbpediaAPI.sparqlGet('SELECT * WHERE {\n' +
+        dbpediaAPI.dbpediaSPARQLGet('SELECT * WHERE {\n' +
             ':'+ query.search +' dbo:leader %3Fleader.\n' +
             '}',function (err,leaders){
             if(err){
                 return reject(err)
             }
             var leaderList = leaders.results.bindings
-            dbpediaAPI.sparqlGet('SELECT * WHERE {\n' +
+            dbpediaAPI.dbpediaSPARQLGet('SELECT * WHERE {\n' +
                 ':'+ query.search +' dbo:leaderTitle %3Ftitle.\n' +
                 '}',function (err,titles){
                 if(err){
@@ -118,6 +118,34 @@ module.exports.getLeaderInfo = function (query,data){
     })
 }
 
+module.exports.getCountryLargestCities = function (query, data) {
+    return new Promise(function (resolve, reject) {
+        wikidataAPI.wikidataSPARQLGet("SELECT DISTINCT %3FcityLabel %3Fpopulation  " +
+            "WHERE { %3Fcity wdt:P17 %3Fcountry." +
+            " %3Fcity wdt:P1082 %3Fpopulation ." +
+            " %3Fcity wdt:P31%2Fwdt:P279* wd:Q515 ." +
+            " %3Fcountry rdfs:label \"" + query.search + "\"%40en." +
+            " SERVICE wikibase:label {" +
+            " bd:serviceParam wikibase:language \"en\" .}}" +
+            " ORDER BY DESC(%3Fpopulation) LIMIT 10", function (err, cities) {
+            if(err){
+                return reject(err)
+            }
+            var largestCities = []
+            var cityList = cities.results.bindings
+            for (var i = 0; i < cityList.length; i ++) {
+                var obj = {}
+                obj.cityName = cityList[i].cityLabel.value
+                obj.population = cityList[i].population.value
+                largestCities.push(obj)
+            }
+            data.largestCities = largestCities
+            resolve(data)
+        })
+    })
+}
+
+
 function getLastWord(str){
     var listStrings = str.split('/')
     var lastString = listStrings[listStrings.length - 1]
@@ -128,3 +156,4 @@ function getLastWord(str){
         return lastString
     }
 }
+

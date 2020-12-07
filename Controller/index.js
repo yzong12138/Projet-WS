@@ -2,7 +2,7 @@ var dbpediaAPI = require('../service/dbpediaAPI')
 
 // Get all the countries and then put them in the data list.
 exports.getAllList = function (next,callback){
-    dbpediaAPI.sparqlGet('SELECT DISTINCT %3Fcountry WHERE {\n' +
+    dbpediaAPI.dbpediaSPARQLGet('SELECT DISTINCT %3Fcountry WHERE {\n' +
         '%3Fcountry a dbo:Country; dbo:longName %3Fname.\n' +
         'FILTER(!regex(%3Fcountry, ".*0|1|2|3|4|5|6|7|8|9|0+.*")).\n' +
         '}',function (err,data){
