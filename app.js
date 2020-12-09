@@ -41,5 +41,5 @@ app.listen(3000,function (){
     console.log('The server is running on the port 3000....')
 })
 
-var search = require("./Controller/search")
-search.getCityInfo("Q8686")
+// var search = require("./Controller/search")
+// search.getCityInfo("Q8686")

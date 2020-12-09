@@ -36,7 +36,10 @@ module.exports.getInfo = function (query){
 
     return new Promise(function (resolve,reject){
         dbpediaAPI.dbpediaSPARQLGet('select * Where {\n' +
-            '%3Fcountry a dbo:Country; dbo:longName %3FLongName.\n' +
+            '%3Fcountry a dbo:Country; rdfs:label %3Flabel\n' +
+            'OPTIONAL{\n' +
+            '%3Fcountry dbo:longName %3Flong.\n' +
+            '}\n' +
             'OPTIONAL{\n' +
             '%3Fcountry dbo:abstract %3Fabstract.\n' +
             '}\n' +
@@ -64,15 +67,20 @@ module.exports.getInfo = function (query){
             'OPTIONAL{\n' +
             '%3Fcountry dbpedia2:gdpNominalRank %3FgdpRank.\n' +
             '}\n' +
-            'FILTER(langMatches(lang(%3FLongName), "en")%26%26langMatches(lang(%3Fabstract), "en")).\n' +
-            'FILTER(regex(%3Fcountry, "'+ query.search +'"))\n' +
-            '}\n' +
+            'FILTER(langMatches( lang(%3Flabel), "en")).'+
+            'bind(IF(%3Flong, %3Flong, %3Flabel) as %3FLongName)'+
+            'FILTER(regex(%3Fcountry, "%2F'+ query.search +'%24")).\n' +
+            'bind(IF(langMatches(lang(%3Fabstract), "en"), "en", "fr") as %3Flang) .\n' +
+            'FILTER(langMatches( lang(%3Fabstract), %3Flang)).'+
+            '}\n'+
+            'Order by %3Flang\n'+
             'Limit 1',function (err,data){
             if(err){
                 return reject(err)
             }
             var result = {}
             data = data.results.bindings[0]
+            // console.log(data)
             result.longname = data.LongName.value
             result.abstract = data.abstract.value
             if(data.flag !== undefined){
@@ -99,6 +107,7 @@ module.exports.getInfo = function (query){
             if(data.gdpRank !== undefined){
                 result.gdpRank = data.gdpRank.value
             }
+            //console.log(result)
             resolve(result)
         })
     })
@@ -121,7 +130,7 @@ module.exports.getLeaderInfo = function (query,data){
                 }
                 var titleList = titles.results.bindings
                 var leaderTitle = []
-                for(var i = 0; i < leaderList.length; i++){
+                for(var i = 0; i < Math.min(leaderList.length,titleList.length); i++){
                     var obj = {}
                     obj.TitleName = titleList[i].title.value
                     obj.leaderName = { name:getLastWord(leaderList[i].leader.value), uri:leaderList[i].leader.value }
@@ -213,11 +222,40 @@ module.exports.getCityInfo = function (cityCode){
             console.log(data)
             var cityInfo = {}
             cityInfo.country = data.country
-            cityInfo.population = data.population
+            if(data.population !== undefined){
+                cityInfo.population = data.population.value
+            }
+            if(data.waterName !== undefined){
+                cityInfo.waterNearBy = data.waterName.value
+                cityInfo.water = data.water.value
+            }
+            if(data.timezone !== undefined){
+                cityInfo.timeZoneName = data.timezoneLabel.value
+                cityInfo.timeZone = data.timezone.value
+            }
+            if(data.area !== undefined){
+                cityInfo.area = data.area.value
+            }
+            if(data.postal !== undefined){
+                cityInfo.postal = data.postal.value
+            }
+            if(data.map !== undefined){
+                cityInfo.map = data.map.value
+            }
+            if(data.tripadvisor !== undefined){
+                cityInfo.tripadvisor = data.tripadvisor.value
+            }
+            if(data.site !== undefined){
+                cityInfo.site = data.site.value
+            }
+            if(data.elevation !== undefined){
+                cityInfo.elevation = data.elevation.value
+            }
             if(data.inception !== undefined){
                 cityInfo.inception = data.inception.value
             }
-
+            //TODO: ** data.cityName represent the name of the city **
+            //TODO: ** It will be better to have an abstract description of the city
             resolve(cityInfo)
         })
     })

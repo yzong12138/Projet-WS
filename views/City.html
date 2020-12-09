@@ -2,9 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ data.}}</title>
+    <title>{{ data.cityName }}</title>
+    <link rel="stylesheet" href="/public/css/Country.css">
 </head>
 <body>
+<div class="container">
+    {{ if data.map }}
+    <div id="img">
+        <img src="{{data.map}}" alt="">
+    </div>
+    {{ /if }}
 
+
+    <span id="longname">{{ data.cityName }}</span>
+
+<!--    {{ if data.abstract }}-->
+<!--    <div class="abstract">{{ data.abstract }}</div>-->
+<!--    {{ /if }}-->
+    <table>
+<!--        {{ if data.country }}-->
+<!--        <tr>-->
+<!--            <td>Country</td>-->
+<!--            <td><a href="{{ data.capital.uri }}">{{ data.capital.name }}</a></td>-->
+<!--        </tr>-->
+<!--        {{ /if }}-->
+
+        {{ if data.population }}
+        <tr>
+            <td>Population</td>
+            <td>{{ data.population }}</td>
+        </tr>
+        {{/if}}
+
+        {{ if data.area }}
+        <tr>
+            <td>Area</td>
+            <td>{{ data.area }} km²</td>
+        </tr>
+        {{ /if }}
+
+        {{ if data.postal }}
+        <tr>
+            <td>Postal Code</td>
+            <td>{{data.postal}}</td>
+        </tr>
+        {{ /if }}
+
+        {{ if data.elevation }}
+        <tr>
+            <td>Altitude</td>
+            <td>{{data.elevation}} meter(s)</td>
+        </tr>
+        {{ /if }}
+
+        {{ if data.timeZone }}
+        <tr>
+            <td>Time Zone</td>
+            <td><a href="{{data.timeZone}}">{{data.timeZoneName}}</a></td>
+        </tr>
+        {{ /if }}
+
+        {{ if data.waterNearBy }}
+        <tr>
+            <td>Waters Near By</td>
+            <td><a href="{{data.water}}">{{data.waterNearBy}}</a></td>
+        </tr>
+        {{ /if }}
+
+        {{ if data.tripadvisor }}
+        <tr>
+            <td>Trip Advisor</td>
+            <td><a href="https://www.tripadvisor.fr/{{data.tripadvisor}}">Welcome to {{data.cityName}}</a></td>
+        </tr>
+        {{ /if }}
+
+        {{ if data.site }}
+        <tr>
+            <td>Official Site of {{data.cityName}}</td>
+            <td><a href="{{data.site}}">Welcome to {{data.cityName}}</a></td>
+        </tr>
+        {{ /if }}
+    </table>
+</div>
 </body>
 </html>

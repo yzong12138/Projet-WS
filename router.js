@@ -46,9 +46,15 @@ router.get('/searchquery',function (req,res,next){
 })
 
 router.get('/searchqueryCity',function (req,res,next){
-    var query = query
-
-    search.getCityInfo()
+    var cityCode = req.query.citycode
+    search.getCityInfo(cityCode)
+        .then(function(data){
+            res.render('City.html',{
+                data:data
+            })
+        },function (err){
+            next(err)
+        })
 })
 
 module.exports = router

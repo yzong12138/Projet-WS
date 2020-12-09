@@ -16,7 +16,7 @@
 
         <span id="longname">{{ data.longname }}</span>
 
-        {{ if data.capital }}
+        {{ if data.abstract }}
         <div class="abstract">{{ data.abstract }}</div>
         {{ /if }}
         <table>
@@ -27,7 +27,7 @@
             </tr>
             {{ /if }}
 
-            {{ if data.capital }}
+            {{ if data.area }}
             <tr>
                 <td>Area</td>
                 <td>{{ data.area }} km²</td>
