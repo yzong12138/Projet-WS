@@ -29,15 +29,17 @@ router.get('/searchquery',function (req,res,next){
             next(err)
         })
         .then(function (data) {
-            res.render('Country.html',{
-                data:data
-            })
-            //return search.getCountryLargestCities(query,data)
+            // res.render('Country.html',{
+            //     data:data
+            // })
+            return search.getCountryLargestCities(query,data)
         },function (err){
             next(err)
         })
         .then(function (data){
-
+            res.render('Country.html',{
+                data:data
+            })
         },function (err){
             next(err)
         })

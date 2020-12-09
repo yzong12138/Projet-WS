@@ -65,7 +65,7 @@ module.exports.getInfo = function (query){
             '%3Fcountry dbpedia2:gdpNominalRank %3FgdpRank.\n' +
             '}\n' +
             'FILTER(langMatches(lang(%3FLongName), "en")%26%26langMatches(lang(%3Fabstract), "en")).\n' +
-            'FILTER(regex(%3Fcountry, "'+ util.countryNameDict(query.search) +'"))\n' +
+            'FILTER(regex(%3Fcountry, "'+ query.search +'"))\n' +
             '}\n' +
             'Limit 1',function (err,data){
             if(err){
@@ -138,11 +138,11 @@ module.exports.getLeaderInfo = function (query,data){
 
 module.exports.getCountryLargestCities = function (query, data) {
     return new Promise(function (resolve, reject) {
-        wikidataAPI.wikidataSPARQLGet("SELECT DISTINCT %3FcityLabel %3Fpopulation  " +
-            "WHERE { %3Fcity wdt:P17 %3Fcountry." +
+        wikidataAPI.wikidataSPARQLGet("SELECT DISTINCT %3FcityLabel %3Fcity %3Fpopulation  " +
+            "WHERE {  %3Fcountry rdfs:label \"" + util.countryNameDict(query.search) + "\"%40en. " +
+            "%3Fcity wdt:P17 %3Fcountry." +
             " %3Fcity wdt:P1082 %3Fpopulation ." +
             " %3Fcity wdt:P31%2Fwdt:P279* wd:Q515 ." +
-            " %3Fcountry rdfs:label \"" + query.search + "\"%40en." +
             " SERVICE wikibase:label {" +
             " bd:serviceParam wikibase:language \"en\" .}}" +
             " ORDER BY DESC(%3Fpopulation) LIMIT 10", function (err, cities) {
@@ -155,6 +155,7 @@ module.exports.getCountryLargestCities = function (query, data) {
                 var obj = {}
                 obj.cityName = cityList[i].cityLabel.value
                 obj.population = cityList[i].population.value
+                obj.cityCode = cityList[i].city.value
                 largestCities.push(obj)
             }
             data.largestCities = largestCities
