@@ -1,5 +1,6 @@
 var dbpediaAPI = require('../service/dbpediaAPI')
 var wikidataAPI = require('../service/wikidataAPI')
+var util = require("../util/util")
 // A simple query of the country with just the basic description (no numbers no photos)
 module.exports.getBasicCountryInfo = function (query,next,callback){
     dbpediaAPI.dbpediaSPARQLGet('SELECT %3Fproperty %3Fvalue WHERE {\n' +
@@ -64,7 +65,7 @@ module.exports.getInfo = function (query){
             '%3Fcountry dbpedia2:gdpNominalRank %3FgdpRank.\n' +
             '}\n' +
             'FILTER(langMatches(lang(%3FLongName), "en")%26%26langMatches(lang(%3Fabstract), "en")).\n' +
-            'FILTER(regex(%3Fcountry, "'+ query.search +'"))\n' +
+            'FILTER(regex(%3Fcountry, "'+ util.countryNameDict(query.search) +'"))\n' +
             '}\n' +
             'Limit 1',function (err,data){
             if(err){
