@@ -73,16 +73,33 @@ module.exports.getInfo = function (query){
             }
             var result = {}
             data = data.results.bindings[0]
+            //console.log(data)
             result.longname = data.LongName.value
             result.abstract = data.abstract.value
-            result.flagUrl = data.flag.value.split('?')[0]
-            result.capital = { name:getLastWord(data.capital.value), uri:data.capital.value }
-            result.nationality = data.nationality.value
-            result.area = data.area.value/1000000
-            result.gov = { name:getLastWord(data.gov.value), uri:data.gov.value }
-            result.gdp = data.gdp.value
-            result.gdpYear = data.gdpYear.value
-            result.gdpRank = data.gdpRank.value
+            if(data.flag !== undefined){
+                result.flagUrl = data.flag.value.split('?')[0]
+            }
+            if(data.capital !== undefined){
+                result.capital = { name:getLastWord(data.capital.value), uri:data.capital.value }
+            }
+            if(data.nationality !== undefined){
+                result.nationality = data.nationality.value
+            }
+            if(data.area!== undefined){
+                result.area = data.area.value/1000000
+            }
+            if(data.gov !== undefined){
+                result.gov = { name:getLastWord(data.gov.value), uri:data.gov.value }
+            }
+            if(data.gdp !== undefined){
+                result.gdp = data.gdp.value
+            }
+            if(data.gdp !== undefined){
+                result.gdpYear = data.gdpYear.value
+            }
+            if(data.gdp !== undefined){
+                result.gdpRank = data.gdpRank.value
+            }
             resolve(result)
         })
     })
@@ -146,6 +163,16 @@ module.exports.getCountryLargestCities = function (query, data) {
     })
 }
 
+module.exports.getCityInfo = function (query,data){
+    return new Promise(function (resolve, reject){
+        wikidataAPI.wikidataSPARQLGet('',function (err,data){
+            if(err){
+                reject(err)
+            }
+            resolve(data)
+        })
+    })
+}
 
 function getLastWord(str){
     var listStrings = str.split('/')
