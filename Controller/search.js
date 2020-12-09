@@ -73,7 +73,6 @@ module.exports.getInfo = function (query){
             }
             var result = {}
             data = data.results.bindings[0]
-            //console.log(data)
             result.longname = data.LongName.value
             result.abstract = data.abstract.value
             if(data.flag !== undefined){
@@ -94,10 +93,10 @@ module.exports.getInfo = function (query){
             if(data.gdp !== undefined){
                 result.gdp = data.gdp.value
             }
-            if(data.gdp !== undefined){
+            if(data.gdpYear !== undefined){
                 result.gdpYear = data.gdpYear.value
             }
-            if(data.gdp !== undefined){
+            if(data.gdpRank !== undefined){
                 result.gdpRank = data.gdpRank.value
             }
             resolve(result)
@@ -155,7 +154,7 @@ module.exports.getCountryLargestCities = function (query, data) {
                 var obj = {}
                 obj.cityName = cityList[i].cityLabel.value
                 obj.population = cityList[i].population.value
-                obj.cityCode = cityList[i].city.value
+                obj.cityCode = getLastWord(cityList[i].city.value)
                 largestCities.push(obj)
             }
             data.largestCities = largestCities

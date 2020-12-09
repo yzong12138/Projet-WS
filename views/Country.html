@@ -61,7 +61,7 @@
             {{ if data.largestCities }}
                 {{ each data.largestCities}}
                 <tr>
-                    <td>{{ $value.cityName }}</td>
+                    <td><a href="/searchqueryCity?citycode={{$value.cityCode}}">{{ $value.cityName }}</a></td>
                     <td>Population: {{ $value.population }}</td>
                 </tr>
                 {{ /each }}
