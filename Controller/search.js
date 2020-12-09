@@ -164,13 +164,62 @@ module.exports.getCountryLargestCities = function (query, data) {
     })
 }
 
-module.exports.getCityInfo = function (query,data){
+module.exports.getCityInfo = function (cityCode){
     return new Promise(function (resolve, reject){
-        wikidataAPI.wikidataSPARQLGet('',function (err,data){
+        wikidataAPI.wikidataSPARQLGet("SELECT DISTINCT * " +
+            "WHERE {" +
+            "  wd:" + cityCode + " wdt:P1082 %3Fpopulation ." +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P571 %3Finception ." +
+            "    }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P2046 %3Farea ." +
+            "    }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P281 %3Fpostal ." +
+            "    }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P1943 %3Fmap ." +
+            "    }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P421 %3Ftimezone ." +
+            "  %3Ftimezone rdfs:label %3FtimezoneLabel ." +
+            "    }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P3134 %3Ftripadvisor ." +
+            "    }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P206 %3Fwater ." +
+            "  ?water rdfs:label %3FwaterName." +
+            " FILTER(langMatches(lang(%3FwaterName), \"en\"))." +
+            "    }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P2044 %3Felevation." +
+            "    }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P856 %3Fsite ." +
+            "  }" +
+            "  OPTIONAL{" +
+            "  wd:" + cityCode + " wdt:P37 %3Flang ." +
+            "  %3Flang rdfs:label %3FlangLabel." +
+            " FILTER(langMatches(lang(%3FlangLabel), \"en\"))." +
+            "  }" +
+            "  SERVICE wikibase:label {" +
+            "    bd:serviceParam wikibase:language \"en\" ." +
+            "  }}",function (err,data){
             if(err){
                 reject(err)
             }
-            resolve(data)
+            data = data.results.bindings[0]
+            console.log(data)
+            var cityInfo = {}
+            cityInfo.country = data.country
+            cityInfo.population = data.population
+            if(data.inception !== undefined){
+                cityInfo.inception = data.inception.value
+            }
+
+            resolve(cityInfo)
         })
     })
 }
