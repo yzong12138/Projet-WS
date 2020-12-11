@@ -7,14 +7,16 @@
 </head>
 <body>
 <div class="container">
-    {{ if data.map }}
+    {{ if data.image }}
     <div id="img">
-        <img src="{{data.map}}" alt="">
+        <img src="{{data.image}}" alt="">
     </div>
     {{ /if }}
 
+    {{ if data.cityLabel }}
+        <span id="longname">{{ data.cityLabel }}</span>
+    {{/if}}
 
-    <span id="longname">{{ data.cityName }}</span>
 
 <!--    {{ if data.abstract }}-->
 <!--    <div class="abstract">{{ data.abstract }}</div>-->
@@ -26,6 +28,7 @@
 <!--            <td><a href="{{ data.capital.uri }}">{{ data.capital.name }}</a></td>-->
 <!--        </tr>-->
 <!--        {{ /if }}-->
+
 
         {{ if data.population }}
         <tr>

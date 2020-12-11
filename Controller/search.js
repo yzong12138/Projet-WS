@@ -178,6 +178,10 @@ module.exports.getCityInfo = function (cityCode){
             "WHERE {" +
             "  wd:" + cityCode + " wdt:P1082 %3Fpopulation ." +
             "  OPTIONAL{" +
+            "  wd:" + cityCode + " rdfs:label %3FcityLabel ." +
+            " FILTER(langMatches(lang(%3FcityLabel), \"en\"))." +
+            "    }" +
+            "  OPTIONAL{" +
             "  wd:" + cityCode + " wdt:P571 %3Finception ." +
             "    }" +
             "  OPTIONAL{" +
@@ -187,7 +191,7 @@ module.exports.getCityInfo = function (cityCode){
             "  wd:" + cityCode + " wdt:P281 %3Fpostal ." +
             "    }" +
             "  OPTIONAL{" +
-            "  wd:" + cityCode + " wdt:P1943 %3Fmap ." +
+            "  wd:" + cityCode + " wdt:P18 %3Fimage ." +
             "    }" +
             "  OPTIONAL{" +
             "  wd:" + cityCode + " wdt:P421 %3Ftimezone ." +
@@ -225,6 +229,9 @@ module.exports.getCityInfo = function (cityCode){
             if(data.population !== undefined){
                 cityInfo.population = data.population.value
             }
+            if(data.cityLabel !== undefined){
+                cityInfo.cityLabel = data.cityLabel.value
+            }
             if(data.waterName !== undefined){
                 cityInfo.waterNearBy = data.waterName.value
                 cityInfo.water = data.water.value
@@ -239,8 +246,8 @@ module.exports.getCityInfo = function (cityCode){
             if(data.postal !== undefined){
                 cityInfo.postal = data.postal.value
             }
-            if(data.map !== undefined){
-                cityInfo.map = data.map.value
+            if(data.image !== undefined){
+                cityInfo.image = data.image.value
             }
             if(data.tripadvisor !== undefined){
                 cityInfo.tripadvisor = data.tripadvisor.value
