@@ -5,7 +5,7 @@
     <title>{{ data.longname }}</title>
     <link rel="stylesheet" href="/public/css/reset.css" />
     <link rel="stylesheet" href="/public/css/Country.css">
-    <link rel="stylesheet" href="//at.alicdn.com/t/font_2010948_i7ogz530wec.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2010948_ksn7jvqjgjl.css">
 
 </head>
 <body>
@@ -47,7 +47,7 @@
             {{ if data.gdp }}
             <tr>
                 <td><i class="iconfont icon-qiandai"></i>&nbsp;GDP at year {{ data.gdpYear }}&nbsp;<i class="iconfont icon-qiandai"></i></td>
-                <td>${{ data.gdp }} {{if data.gdpRank}}, rank position: {{data.gdpRank}} {{/if}}</td>
+                <td>$ {{ data.gdp }} {{if data.gdpRank}}, rank position: {{data.gdpRank}} {{/if}}</td>
             </tr>
             {{ /if }}
 
@@ -60,6 +60,13 @@
                     </tr>
                 {{ /each }}
             {{ /if }}
+
+            {{ if data.label }}
+            <tr>
+                <td><i class="iconfont icon-youtube"></i>&nbsp;Touropia on YouTube&nbsp;<i class="iconfont icon-youtube"></i></td>
+                <td><a href="https://www.youtube.com/user/touropia/search?query={{ data.label }}">Video of {{ data.label }}</a></td>
+            </tr>
+            {{/if}}
 
             {{ if data.largestCities }}
                 {{ each data.largestCities}}

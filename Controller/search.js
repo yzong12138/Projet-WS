@@ -83,6 +83,7 @@ module.exports.getInfo = function (query){
             // console.log(data)
             result.longname = data.LongName.value
             result.abstract = data.abstract.value
+            result.label = data.label.value.replace(/_/g,' ')
             if(data.flag !== undefined){
                 result.flagUrl = data.flag.value.split('?')[0]
             }
@@ -99,13 +100,13 @@ module.exports.getInfo = function (query){
                 result.gov = { name:getLastWord(data.gov.value), uri:data.gov.value }
             }
             if(data.gdp !== undefined){
-                result.gdp = data.gdp.value
+                result.gdp = Number(data.gdp.value)
             }
             if(data.gdpYear !== undefined){
                 result.gdpYear = data.gdpYear.value
             }
             if(data.gdpRank !== undefined){
-                result.gdpRank = data.gdpRank.value
+                result.gdpRank = Number(data.gdpRank.value)
             }
             //console.log(result)
             resolve(result)
@@ -223,7 +224,7 @@ module.exports.getCityInfo = function (cityCode){
                 reject(err)
             }
             data = data.results.bindings[0]
-            console.log(data)
+            //console.log(data)
             var cityInfo = {}
             cityInfo.country = data.country
             if(data.population !== undefined){

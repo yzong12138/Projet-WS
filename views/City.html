@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ data.cityName }}</title>
+    <title>{{ data.cityLabel }}</title>
     <link rel="stylesheet" href="/public/css/Country.css">
 </head>
 <body>
@@ -81,8 +81,8 @@
 
         {{ if data.site }}
         <tr>
-            <td>Official Site of {{data.cityName}}</td>
-            <td><a href="{{data.site}}">Welcome to {{data.cityName}}</a></td>
+            <td>Official Site of {{data.cityLabel}}</td>
+            <td><a href="{{data.site}}">Welcome to {{data.cityLabel}}</a></td>
         </tr>
         {{ /if }}
     </table>
