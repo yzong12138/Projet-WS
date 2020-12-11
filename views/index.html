@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="/public/css/reset.css" />
     <link rel="stylesheet" href="/public/css/index.css" />
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2010948_i7ogz530wec.css">
 </head>
 <body>
 <div class="title">
-    <span>Welcome to H4212pedia</span>
+    <span><i class="icon iconfont icon-guojia"></i>&nbsp;&nbsp;Welcome to H4212pedia&nbsp;&nbsp;<i class="icon iconfont icon-guojia"></i></span>
 </div>
 <div class="wrap" id="app">
     <form action="/searchquery" method="get">
@@ -21,37 +22,23 @@
                 <option value="{{ $value.country.simpleName }}">
                 {{/each}}
             </datalist>
-
-
-
             <button type="submit" class="input_sub">
-                Search
+                <i class="icon iconfont icon-search"></i>
             </button>
 
-            <label class="radio-inline">
-                <input type="radio" name="countryorcity" id="inlineRadio1" value="country"> Country
-            </label>
-            <label class="radio-inline">
-                <input type="radio" name="countryorcity" id="inlineRadio2" value="city"> City
-            </label>
+<!--            <label class="radio-inline">-->
+<!--                <input type="radio" name="countryorcity" id="inlineRadio1" value="country"> Country-->
+<!--            </label>-->
+<!--            <label class="radio-inline">-->
+<!--                <input type="radio" name="countryorcity" id="inlineRadio2" value="city"> City-->
+<!--            </label>-->
         </div>
-<!--        <div id="hotkeycontainer">-->
-<!--            {{ each hotkeys }}-->
-<!--            <a class="hotkeys" href="#">{{ $value }}</a>-->
-<!--            {{ /each }}-->
-<!--        </div>-->
     </div>
     </form>
 </div>
     <script src="/node_modules/jquery/dist/jquery.js"></script>
     <script>
         $(function (){
-            $('.hotkeys').on('click',function (event){
-                $('.input_txt').val($(this).text())
-                //Ajax
-            })
-
-
 
         })
     </script>

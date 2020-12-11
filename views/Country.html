@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ data.longname }}</title>
+    <link rel="stylesheet" href="/public/css/reset.css" />
     <link rel="stylesheet" href="/public/css/Country.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2010948_i7ogz530wec.css">
+
 </head>
 <body>
     <div class="container">
@@ -22,29 +25,29 @@
         <table>
             {{ if data.capital }}
             <tr>
-                <td>Capital</td>
+                <td><i class="iconfont icon-xingxing"></i>&nbsp;Capital&nbsp;<i class="iconfont icon-xingxing"></i></td>
                 <td><a href="{{ data.capital.uri }}">{{ data.capital.name }}</a></td>
             </tr>
             {{ /if }}
 
             {{ if data.area }}
             <tr>
-                <td>Area</td>
+                <td><i class="iconfont icon-map"></i>&nbsp;Area&nbsp;<i class="iconfont icon-map"></i></td>
                 <td>{{ data.area }} km²</td>
             </tr>
             {{/if}}
 
             {{ if data.gov }}
                 <tr>
-                    <td>Government Type</td>
+                    <td><i class="iconfont icon-ziyuan"></i>&nbsp;Government Type&nbsp;<i class="iconfont icon-ziyuan"></i></td>
                     <td><a href="{{data.gov.uri}}">{{ data.gov.name }}</a></td>
                 </tr>
             {{ /if }}
 
             {{ if data.gdp }}
             <tr>
-                <td>GDP at year {{ data.gdpYear }}</td>
-                <td>${{ data.gdp }}, rank position: {{data.gdpRank}}</td>
+                <td><i class="iconfont icon-qiandai"></i>&nbsp;GDP at year {{ data.gdpYear }}&nbsp;<i class="iconfont icon-qiandai"></i></td>
+                <td>${{ data.gdp }} {{if data.gdpRank}}, rank position: {{data.gdpRank}} {{/if}}</td>
             </tr>
             {{ /if }}
 
@@ -52,7 +55,7 @@
             {{ if data.leader }}
                 {{ each data.leader}}
                     <tr>
-                        <td>{{ $value.TitleName }}</td>
+                        <td><i class="iconfont icon-lingdao"></i>&nbsp;{{ $value.TitleName }}&nbsp;<i class="iconfont icon-lingdao"></i></td>
                         <td><a href="{{ $value.leaderName.uri }}">{{ $value.leaderName.name }}</a></td>
                     </tr>
                 {{ /each }}
@@ -61,7 +64,7 @@
             {{ if data.largestCities }}
                 {{ each data.largestCities}}
                 <tr>
-                    <td><a href="/searchqueryCity?citycode={{$value.cityCode}}">{{ $value.cityName }}</a></td>
+                    <td><i class="iconfont icon-city"></i>&nbsp;<a href="/searchqueryCity?citycode={{$value.cityCode}}">{{ $value.cityName }}</a>&nbsp;<i class="iconfont icon-city"></i></td>
                     <td>Population: {{ $value.population }}</td>
                 </tr>
                 {{ /each }}

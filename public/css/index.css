@@ -1,8 +1,11 @@
 .title{
     font-size: 26px;
-    width:400px;
+    width:500px;
     margin:100px auto 0;
     font-weight: bold;
+}
+.icon-guojia::before {
+    font-size: 40px;
 }
 
 .wrap{
@@ -42,6 +45,8 @@
     cursor: pointer;
     position: relative;
 }
+
+
 .input_sub.loading::before{
     content:'';
     position: absolute;
