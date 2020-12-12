@@ -224,12 +224,17 @@ module.exports.getCityInfo = function (cityCode){
             if(err){
                 reject(err)
             }
+            console.log(data.results.bindings[0])
             data = data.results.bindings[0]
             //console.log(data)
             var cityInfo = {}
             cityInfo.country = data.country
             if(data.population !== undefined){
                 cityInfo.population = data.population.value
+            }
+            if(data.inception !== undefined){
+                cityInfo.inception = data.inception.value
+                cityInfo.inception = cityInfo.inception.substring(1,cityInfo.inception.length - 10)
             }
             if(data.cityLabel !== undefined){
                 cityInfo.cityLabel = data.cityLabel.value
@@ -259,9 +264,6 @@ module.exports.getCityInfo = function (cityCode){
             }
             if(data.elevation !== undefined){
                 cityInfo.elevation = data.elevation.value
-            }
-            if(data.inception !== undefined){
-                cityInfo.inception = data.inception.value
             }
             //TODO: ** data.cityName represent the name of the city **
             //TODO: ** It will be better to have an abstract description of the city

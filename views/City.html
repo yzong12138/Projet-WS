@@ -29,7 +29,12 @@
 <!--            <td><a href="{{ data.capital.uri }}">{{ data.capital.name }}</a></td>-->
 <!--        </tr>-->
 <!--        {{ /if }}-->
-
+        {{ if data.inception }}
+        <tr>
+            <td>&nbsp;Founded at&nbsp;</td>
+            <td>{{ data.inception }}</td>
+        </tr>
+        {{/if}}
 
         {{ if data.population }}
         <tr>
