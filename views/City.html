@@ -33,56 +33,56 @@
 
         {{ if data.population }}
         <tr>
-            <td><i class="iconfont icon-renkou"></i>&nbsp;Population</td>
+            <td><i class="iconfont icon-renkou"></i>&nbsp;Population&nbsp;<i class="iconfont icon-renkou"></i></td>
             <td>{{ data.population }}</td>
         </tr>
         {{/if}}
 
         {{ if data.area }}
         <tr>
-            <td><i class="iconfont icon-map"></i>&nbsp;Area</td>
+            <td><i class="iconfont icon-map"></i>&nbsp;Area&nbsp;<i class="iconfont icon-map"></i></td>
             <td>{{ data.area }} km²</td>
         </tr>
         {{ /if }}
 
         {{ if data.postal }}
         <tr>
-            <td><i class="iconfont icon-youju"></i>&nbsp;Postal Code</td>
+            <td><i class="iconfont icon-youju"></i>&nbsp;Postal Code&nbsp;<i class="iconfont icon-youju"></i></td>
             <td>{{data.postal}}</td>
         </tr>
         {{ /if }}
 
         {{ if data.elevation }}
         <tr>
-            <td><i class="iconfont icon-haiba"></i>&nbsp;Altitude</td>
+            <td><i class="iconfont icon-haiba"></i>&nbsp;Altitude&nbsp;<i class="iconfont icon-haiba"></i></td>
             <td>{{data.elevation}} meter(s)</td>
         </tr>
         {{ /if }}
 
         {{ if data.timeZone }}
         <tr>
-            <td><i class="iconfont icon-shiqu"></i>&nbsp;Time Zone</td>
+            <td><i class="iconfont icon-shiqu"></i>&nbsp;Time Zone&nbsp;<i class="iconfont icon-shiqu"></i></td>
             <td><a href="{{data.timeZone}}">{{data.timeZoneName}}</a></td>
         </tr>
         {{ /if }}
 
         {{ if data.waterNearBy }}
         <tr>
-            <td><i class="iconfont icon-zhongdianshuixi"></i>&nbsp;Waters Near By</td>
+            <td><i class="iconfont icon-zhongdianshuixi"></i>&nbsp;Waters Near By&nbsp;<i class="iconfont icon-zhongdianshuixi"></i></td>
             <td><a href="{{data.water}}">{{data.waterNearBy}}</a></td>
         </tr>
         {{ /if }}
 
         {{ if data.tripadvisor }}
         <tr>
-            <td><i class="iconfont icon-tripadvisor"></i>&nbsp;Trip Advisor</td>
+            <td><i class="iconfont icon-tripadvisor"></i>&nbsp;Trip Advisor&nbsp;<i class="iconfont icon-tripadvisor"></i></td>
             <td><a href="https://www.tripadvisor.fr/{{data.tripadvisor}}">Welcome to {{data.cityLabel}}</a></td>
         </tr>
         {{ /if }}
 
         {{ if data.site }}
         <tr>
-            <td><i class="iconfont icon-guanfang"></i>&nbsp;Official Site of {{data.cityLabel}}</td>
+            <td><i class="iconfont icon-guanfang"></i>&nbsp;Official Site of {{data.cityLabel}}&nbsp;<i class="iconfont icon-guanfang"></i></td>
             <td><a href="{{data.site}}">Welcome to {{data.cityLabel}}</a></td>
         </tr>
         {{ /if }}

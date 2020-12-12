@@ -197,6 +197,7 @@ module.exports.getCityInfo = function (cityCode){
             "  OPTIONAL{" +
             "  wd:" + cityCode + " wdt:P421 %3Ftimezone ." +
             "  %3Ftimezone rdfs:label %3FtimezoneLabel ." +
+            "  FILTER(langMatches(lang(%3FtimezoneLabel), \"en\"))." +
             "    }" +
             "  OPTIONAL{" +
             "  wd:" + cityCode + " wdt:P3134 %3Ftripadvisor ." +
@@ -204,7 +205,7 @@ module.exports.getCityInfo = function (cityCode){
             "  OPTIONAL{" +
             "  wd:" + cityCode + " wdt:P206 %3Fwater ." +
             "  ?water rdfs:label %3FwaterName." +
-            " FILTER(langMatches(lang(%3FwaterName), \"en\"))." +
+            "  FILTER(langMatches(lang(%3FwaterName), \"en\"))." +
             "    }" +
             "  OPTIONAL{" +
             "  wd:" + cityCode + " wdt:P2044 %3Felevation." +
