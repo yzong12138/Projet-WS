@@ -76,14 +76,14 @@
         {{ if data.tripadvisor }}
         <tr>
             <td><i class="iconfont icon-tripadvisor"></i>&nbsp;Trip Advisor&nbsp;<i class="iconfont icon-tripadvisor"></i></td>
-            <td><a href="https://www.tripadvisor.fr/{{data.tripadvisor}}">Welcome to {{data.cityLabel}}</a></td>
+            <td><a href="https://www.tripadvisor.fr/{{data.tripadvisor}}" target="_blank">Welcome to {{data.cityLabel}}</a></td>
         </tr>
         {{ /if }}
 
         {{ if data.site }}
         <tr>
             <td><i class="iconfont icon-guanfang"></i>&nbsp;Official Site of {{data.cityLabel}}&nbsp;<i class="iconfont icon-guanfang"></i></td>
-            <td><a href="{{data.site}}">Welcome to {{data.cityLabel}}</a></td>
+            <td><a href="{{data.site}}" target="_blank">Welcome to {{data.cityLabel}}</a></td>
         </tr>
         {{ /if }}
     </table>
