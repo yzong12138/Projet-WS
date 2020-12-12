@@ -283,11 +283,29 @@ function getLastWord(str){
 
 function handleGdp(str){
     if(str.endsWith('000000000')){
-        return str.substring(0,str.length-9) + ' billion'
+        str = str.substring(0,str.length-9)
+        if(str.length > 3){
+            var index = str.length-3
+            return str.slice(0,index) + '.' + str.slice(index) + ' trillion'
+        }else{
+            return str + ' billion'
+        }
     }else if(str.endsWith('000000')){
-        return str.substring(0,str.length-6) + ' million'
+        str = str.substring(0,str.length-6)
+        if(str.length > 3){
+            var index = str.length-3
+            return str.slice(0,index) + '.' + str.slice(index) + ' billion'
+        }else{
+            return str + ' million'
+        }
     }else if(str.endsWith('000')){
-        return str.substring(0,str.length-3) + ' thousand'
+        str = str.substring(0,str.length-3)
+        if(str.length > 3){
+            var index = str.length-3
+            return str.slice(0,index) + '.' + str.slice(index) + ' million'
+        }else{
+            return str + ' thousand'
+        }
     }else{
         console.log('你真的太穷了')
         return str
