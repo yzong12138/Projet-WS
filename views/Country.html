@@ -9,6 +9,7 @@
 
 </head>
 <body>
+    <label id="search" hidden="hidden">{{search}}</label>
     <div class="container">
         {{ if data.flagUrl }}
         <div id="img">
@@ -22,7 +23,7 @@
         {{ if data.abstract }}
         <div class="abstract">{{ data.abstract }}</div>
         {{ /if }}
-        <table>
+        <table id="table">
             {{ if data.capital }}
             <tr>
                 <td colspan="2"><i class="iconfont icon-xingxing"></i>&nbsp;Capital&nbsp;<i class="iconfont icon-xingxing"></i></td>
@@ -70,7 +71,6 @@
                 <td><a href="https://www.youtube.com/user/touropia/search?query={{ data.label }}">Video of {{ data.label }}</a></td>
             </tr>
             {{/if}}
-
             {{ if data.largestCities }}
                 {{ each data.largestCities}}
                 <tr>
@@ -86,5 +86,56 @@
     </div>
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+        function getLastWord(str){
+            var listStrings = str.split('/')
+            var lastString = listStrings[listStrings.length - 1]
+            if(lastString.includes('#')){
+                var arr = lastString.split('#')
+                return arr[ arr.length - 1 ]
+            }else{
+                return lastString
+            }
+        }
+
+        $(document).ready(function (){
+            if($("#search").val() === undefined){
+                console.log("undefined");
+            } else {
+                let str = $("#search").text()
+                console.log(str);
+                $.ajax({
+                    type: "get",
+                    url: 'https://query.wikidata.org/sparql?query=' + str + "&format=json",
+                    responseType: 'application/json',
+                    Accept: 'application/sparql-results+json',
+                    data: {},
+                    success: function (data) {
+                        var largestCities = []
+                        var cityList = data.results.bindings
+                        for (var i = 0; i < cityList.length; i ++) {
+                            var obj = {}
+                            obj.cityName = cityList[i].cityLabel.value
+                            obj.population = cityList[i].population.value
+                            obj.cityCode = getLastWord(cityList[i].city.value)
+                            largestCities.push(obj)
+                        }
+                        console.log(largestCities);
+                        if(largestCities.length != 0) {
+                            let str = `<tr></tr><td rowspan="${largestCities.length+1}">City(s)</td></tr>`
+                            $('#table').append(str);
+                            largestCities.forEach(obj => {
+                                str = `<tr><td><i class="iconfont icon-city"></i>&nbsp;<a href="/searchqueryCity?citycode=${obj.cityCode}
+                            " target="_blank">${obj.cityName}</a>&nbsp;<i class="iconfont icon-city"></i></td>
+                            `+"\n"+`<td>Population: ${obj.population}</td></tr>`
+                                $('#table').append(str);
+                            })
+                        }
+
+                    }
+                });
+            }
+        })
+    </script>
 </body>
 </html>

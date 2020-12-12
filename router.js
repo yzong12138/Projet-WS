@@ -21,24 +21,17 @@ router.get('/searchquery',function (req,res,next){
     //         data:result
     //     })
     // })
-
+    var searchquery = search.getCountryLargestCitiesQuery(query);
     search.getInfo(query)
         .then(function (data) {
             return search.getLeaderInfo(query,data)
         },function (err){
             next(err)
         })
-        .then(function (data) {
-            // res.render('Country.html',{
-            //     data:data
-            // })
-            return search.getCountryLargestCities(query,data)
-        },function (err){
-            next(err)
-        })
         .then(function (data){
             res.render('Country.html',{
-                data:data
+                data:data,
+                search: searchquery
             })
         },function (err){
             next(err)

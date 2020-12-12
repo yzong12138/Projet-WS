@@ -281,6 +281,17 @@ function getLastWord(str){
     }
 }
 
+module.exports.getCountryLargestCitiesQuery = function (query) {
+    return "SELECT DISTINCT %3FcityLabel %3Fcity %3Fpopulation  " +
+            "WHERE {  %3Fcountry rdfs:label \"" + util.countryNameDict(query.search) + "\"%40en. " +
+            "%3Fcity wdt:P17 %3Fcountry." +
+            " %3Fcity wdt:P1082 %3Fpopulation ." +
+            " %3Fcity wdt:P31%2Fwdt:P279* wd:Q515 ." +
+            " SERVICE wikibase:label {" +
+            " bd:serviceParam wikibase:language \"en\" .}}" +
+            " ORDER BY DESC(%3Fpopulation) LIMIT 10"
+}
+
 function handleGdp(str){
     if(str.endsWith('000000000')){
         str = str.substring(0,str.length-9)
