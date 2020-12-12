@@ -100,7 +100,7 @@ module.exports.getInfo = function (query){
                 result.gov = { name:getLastWord(data.gov.value), uri:data.gov.value }
             }
             if(data.gdp !== undefined){
-                result.gdp = Number(data.gdp.value)
+                result.gdp = handleGdp(String(Number(data.gdp.value)))
             }
             if(data.gdpYear !== undefined){
                 result.gdpYear = data.gdpYear.value
@@ -280,3 +280,15 @@ function getLastWord(str){
     }
 }
 
+function handleGdp(str){
+    if(str.endsWith('000000000')){
+        return str.substring(0,str.length-9) + ' billion'
+    }else if(str.endsWith('000000')){
+        return str.substring(0,str.length-6) + ' million'
+    }else if(str.endsWith('000')){
+        return str.substring(0,str.length-3) + ' thousand'
+    }else{
+        console.log('你真的太穷了')
+        return str
+    }
+}

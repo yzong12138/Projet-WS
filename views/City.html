@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>{{ data.cityLabel }}</title>
     <link rel="stylesheet" href="/public/css/Country.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2266319_ev35aaf3t49.css">
 </head>
 <body>
 <div class="container">
@@ -32,56 +33,56 @@
 
         {{ if data.population }}
         <tr>
-            <td>Population</td>
+            <td><i class="iconfont icon-renkou"></i>&nbsp;Population</td>
             <td>{{ data.population }}</td>
         </tr>
         {{/if}}
 
         {{ if data.area }}
         <tr>
-            <td>Area</td>
+            <td><i class="iconfont icon-map"></i>&nbsp;Area</td>
             <td>{{ data.area }} km²</td>
         </tr>
         {{ /if }}
 
         {{ if data.postal }}
         <tr>
-            <td>Postal Code</td>
+            <td><i class="iconfont icon-youju"></i>&nbsp;Postal Code</td>
             <td>{{data.postal}}</td>
         </tr>
         {{ /if }}
 
         {{ if data.elevation }}
         <tr>
-            <td>Altitude</td>
+            <td><i class="iconfont icon-haiba"></i>&nbsp;Altitude</td>
             <td>{{data.elevation}} meter(s)</td>
         </tr>
         {{ /if }}
 
         {{ if data.timeZone }}
         <tr>
-            <td>Time Zone</td>
+            <td><i class="iconfont icon-shiqu"></i>&nbsp;Time Zone</td>
             <td><a href="{{data.timeZone}}">{{data.timeZoneName}}</a></td>
         </tr>
         {{ /if }}
 
         {{ if data.waterNearBy }}
         <tr>
-            <td>Waters Near By</td>
+            <td><i class="iconfont icon-zhongdianshuixi"></i>&nbsp;Waters Near By</td>
             <td><a href="{{data.water}}">{{data.waterNearBy}}</a></td>
         </tr>
         {{ /if }}
 
         {{ if data.tripadvisor }}
         <tr>
-            <td>Trip Advisor</td>
-            <td><a href="https://www.tripadvisor.fr/{{data.tripadvisor}}">Welcome to {{data.cityName}}</a></td>
+            <td><i class="iconfont icon-tripadvisor"></i>&nbsp;Trip Advisor</td>
+            <td><a href="https://www.tripadvisor.fr/{{data.tripadvisor}}">Welcome to {{data.cityLabel}}</a></td>
         </tr>
         {{ /if }}
 
         {{ if data.site }}
         <tr>
-            <td>Official Site of {{data.cityLabel}}</td>
+            <td><i class="iconfont icon-guanfang"></i>&nbsp;Official Site of {{data.cityLabel}}</td>
             <td><a href="{{data.site}}">Welcome to {{data.cityLabel}}</a></td>
         </tr>
         {{ /if }}

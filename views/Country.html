@@ -25,28 +25,28 @@
         <table>
             {{ if data.capital }}
             <tr>
-                <td><i class="iconfont icon-xingxing"></i>&nbsp;Capital&nbsp;<i class="iconfont icon-xingxing"></i></td>
+                <td colspan="2"><i class="iconfont icon-xingxing"></i>&nbsp;Capital&nbsp;<i class="iconfont icon-xingxing"></i></td>
                 <td><a href="{{ data.capital.uri }}">{{ data.capital.name }}</a></td>
             </tr>
             {{ /if }}
 
             {{ if data.area }}
             <tr>
-                <td><i class="iconfont icon-map"></i>&nbsp;Area&nbsp;<i class="iconfont icon-map"></i></td>
+                <td colspan="2"><i class="iconfont icon-map"></i>&nbsp;Area&nbsp;<i class="iconfont icon-map"></i></td>
                 <td>{{ data.area }} km²</td>
             </tr>
             {{/if}}
 
             {{ if data.gov }}
                 <tr>
-                    <td><i class="iconfont icon-ziyuan"></i>&nbsp;Government Type&nbsp;<i class="iconfont icon-ziyuan"></i></td>
+                    <td colspan="2"><i class="iconfont icon-ziyuan"></i>&nbsp;Government Type&nbsp;<i class="iconfont icon-ziyuan"></i></td>
                     <td><a href="{{data.gov.uri}}">{{ data.gov.name }}</a></td>
                 </tr>
             {{ /if }}
 
             {{ if data.gdp }}
             <tr>
-                <td><i class="iconfont icon-qiandai"></i>&nbsp;GDP at year {{ data.gdpYear }}&nbsp;<i class="iconfont icon-qiandai"></i></td>
+                <td colspan="2"><i class="iconfont icon-qiandai"></i>&nbsp;GDP at Year {{ data.gdpYear }}&nbsp;<i class="iconfont icon-qiandai"></i></td>
                 <td>$ {{ data.gdp }} {{if data.gdpRank}}, rank position: {{data.gdpRank}} {{/if}}</td>
             </tr>
             {{ /if }}
@@ -55,6 +55,9 @@
             {{ if data.leader }}
                 {{ each data.leader}}
                     <tr>
+                        {{if ($index == 0)}}
+                        <td rowspan="{{data.leader.length}}">Leader(s)</td>
+                        {{/if}}
                         <td><i class="iconfont icon-lingdao"></i>&nbsp;{{ $value.TitleName }}&nbsp;<i class="iconfont icon-lingdao"></i></td>
                         <td><a href="{{ $value.leaderName.uri }}">{{ $value.leaderName.name }}</a></td>
                     </tr>
@@ -63,7 +66,7 @@
 
             {{ if data.label }}
             <tr>
-                <td><i class="iconfont icon-youtube"></i>&nbsp;Touropia on YouTube&nbsp;<i class="iconfont icon-youtube"></i></td>
+                <td colspan="2"><i class="iconfont icon-youtube"></i>&nbsp;Touropia on YouTube&nbsp;<i class="iconfont icon-youtube"></i></td>
                 <td><a href="https://www.youtube.com/user/touropia/search?query={{ data.label }}">Video of {{ data.label }}</a></td>
             </tr>
             {{/if}}
@@ -71,6 +74,9 @@
             {{ if data.largestCities }}
                 {{ each data.largestCities}}
                 <tr>
+                    {{if ($index == 0)}}
+                    <td rowspan="{{data.largestCities.length}}">City(s)</td>
+                    {{/if}}
                     <td><i class="iconfont icon-city"></i>&nbsp;<a href="/searchqueryCity?citycode={{$value.cityCode}}">{{ $value.cityName }}</a>&nbsp;<i class="iconfont icon-city"></i></td>
                     <td>Population: {{ $value.population }}</td>
                 </tr>
@@ -78,5 +84,7 @@
             {{ /if }}
         </table>
     </div>
+
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
 </body>
 </html>
