@@ -224,7 +224,6 @@ module.exports.getCityInfo = function (cityCode){
             if(err){
                 reject(err)
             }
-            console.log(data.results.bindings[0])
             data = data.results.bindings[0]
             //console.log(data)
             var cityInfo = {}
@@ -235,6 +234,9 @@ module.exports.getCityInfo = function (cityCode){
             if(data.inception !== undefined){
                 cityInfo.inception = data.inception.value
                 cityInfo.inception = cityInfo.inception.substring(1,cityInfo.inception.length - 10)
+                if (cityInfo.inception.substring(0, 4) > new Date().getFullYear()) {
+                    cityInfo.inception = "B.C. " + cityInfo.inception
+                }
             }
             if(data.cityLabel !== undefined){
                 cityInfo.cityLabel = data.cityLabel.value
