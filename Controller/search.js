@@ -233,7 +233,11 @@ module.exports.getCityInfo = function (cityCode){
             }
             if(data.inception !== undefined){
                 cityInfo.inception = data.inception.value
-                cityInfo.inception = cityInfo.inception.substring(1,cityInfo.inception.length - 10)
+                if (parseInt(cityInfo.inception.substring(0,1))) {
+                    cityInfo.inception = cityInfo.inception.substring(0, cityInfo.inception.length - 10)
+                } else {
+                    cityInfo.inception = cityInfo.inception.substring(1, cityInfo.inception.length - 10)
+                }
                 if (cityInfo.inception.substring(0, 4) > new Date().getFullYear()) {
                     cityInfo.inception = "B.C. " + cityInfo.inception
                 }
