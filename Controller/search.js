@@ -44,7 +44,7 @@ module.exports.getRelatedInfo = function (query,next,callback){
 /**
  * Get the basic information of the country: country name in query.search
  * @param query the object which contains the information to search
- * @returns {Promise<unknown>}
+ * @returns {Promise<unknown>} a promise function which returns the data of a country
  */
 module.exports.getInfo = function (query){
 
@@ -132,7 +132,7 @@ module.exports.getInfo = function (query){
  * Get the name and title of a leader of a country
  * @param query query the object which contains the information to search
  * @param data the result we get from the last request. We join all the information together in one object.
- * @returns {Promise<unknown>}
+ * @returns {Promise<unknown>} a promise function which returns the data of the leader of a country
  */
 module.exports.getLeaderInfo = function (query,data){
     return new Promise(function (resolve, reject){
@@ -169,7 +169,7 @@ module.exports.getLeaderInfo = function (query,data){
  * Get 10 largest city of a country
  * @param query the object which contains the information to search
  * @param data the result we get from the last request. We join all the information together in one object.
- * @returns {Promise<unknown>}
+ * @returns {Promise<data>} a promise function which returns the data of the 10 largest city of a country
  */
 module.exports.getCountryLargestCities = function (query, data) {
     return new Promise(function (resolve, reject) {
@@ -202,7 +202,7 @@ module.exports.getCountryLargestCities = function (query, data) {
 /**
  * Get the details information of a city
  * @param cityCode the code of the city in wikidata. For exemple Shanghai is Q8686
- * @returns {Promise<unknown>}
+ * @returns {Promise<data>} a promise function which returns the data of a city
  */
 module.exports.getCityInfo = function (cityCode){
     return new Promise(function (resolve, reject){
