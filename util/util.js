@@ -1,3 +1,5 @@
+
+// Change the name of searching some countries with there long name to the short name.
 module.exports.countryNameDict = function (country) {
     if (country === "United_States") return "United States of America"
     if (country === "China") return "People\'s Republic of China"

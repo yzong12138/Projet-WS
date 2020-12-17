@@ -32,6 +32,7 @@ module.exports.getRelatedInfo = function (query,next,callback){
     })
 }
 
+// Get the basic information of the country: country name in query.search
 module.exports.getInfo = function (query){
 
     return new Promise(function (resolve,reject){
@@ -114,6 +115,7 @@ module.exports.getInfo = function (query){
     })
 }
 
+// Get the name and title of a country
 module.exports.getLeaderInfo = function (query,data){
     return new Promise(function (resolve, reject){
         dbpediaAPI.dbpediaSPARQLGet('SELECT * WHERE {\n' +
@@ -145,6 +147,7 @@ module.exports.getLeaderInfo = function (query,data){
     })
 }
 
+// Get 10 largest city of a country
 module.exports.getCountryLargestCities = function (query, data) {
     return new Promise(function (resolve, reject) {
         wikidataAPI.wikidataSPARQLGet("SELECT DISTINCT %3FcityLabel %3Fcity %3Fpopulation  " +
@@ -173,6 +176,7 @@ module.exports.getCountryLargestCities = function (query, data) {
     })
 }
 
+// Get the details information of a city
 module.exports.getCityInfo = function (cityCode){
     return new Promise(function (resolve, reject){
         wikidataAPI.wikidataSPARQLGet("SELECT DISTINCT * " +
@@ -278,6 +282,7 @@ module.exports.getCityInfo = function (cityCode){
     })
 }
 
+// Get the last word of a url by splitting the '/'
 function getLastWord(str){
     var listStrings = str.split('/')
     var lastString = listStrings[listStrings.length - 1]
@@ -289,6 +294,7 @@ function getLastWord(str){
     }
 }
 
+// Get the query of searching the 10 largest cities of a country(for async use)
 module.exports.getCountryLargestCitiesQuery = function (query) {
     return "SELECT DISTINCT %3FcityLabel %3Fcity %3Fpopulation  " +
             "WHERE {  %3Fcountry rdfs:label \"" + util.countryNameDict(query.search) + "\"%40en. " +
@@ -300,6 +306,7 @@ module.exports.getCountryLargestCitiesQuery = function (query) {
             " ORDER BY DESC(%3Fpopulation) LIMIT 10"
 }
 
+// Handle the problem that the GDP of a country ends with lots of 0
 function handleGdp(str){
     if(str.endsWith('000000000')){
         str = str.substring(0,str.length-9)
@@ -326,7 +333,7 @@ function handleGdp(str){
             return str + ' thousand'
         }
     }else{
-        console.log('你真的太穷了')
+        console.log('你真的太穷了(How poor you are!)')
         return str
     }
 }
