@@ -1,7 +1,12 @@
 var dbpediaAPI = require('../service/dbpediaAPI')
 var wikidataAPI = require('../service/wikidataAPI')
 var util = require("../util/util")
-// A simple query of the country with just the basic description (no numbers no photos)
+/**
+ * A simple query of the country with just the basic description (no numbers no photos)
+ * @param query the object which contains the information to search
+ * @param next the next function to call(promise)
+ * @param callback the callback function
+ */
 module.exports.getBasicCountryInfo = function (query,next,callback){
     dbpediaAPI.dbpediaSPARQLGet('SELECT %3Fproperty %3Fvalue WHERE {\n' +
         ':'+ query.search +' a dbo:Country; %3Fproperty %3Fvalue.\n' +
@@ -17,8 +22,12 @@ module.exports.getBasicCountryInfo = function (query,next,callback){
         callback(result)
     })
 }
-
-//Finding the infomation related with the dbpedia in the query.
+/**
+ * Get the information associate the dbpedia in phrase
+ * @param query the object which contains the information to search
+ * @param next the next function to call(promise)
+ * @param callback the callback function
+ */
 module.exports.getRelatedInfo = function (query,next,callback){
     dbpediaAPI.spotlightAnnoteGet(query.search,function (err,data){
         if(err){
@@ -32,7 +41,11 @@ module.exports.getRelatedInfo = function (query,next,callback){
     })
 }
 
-// Get the basic information of the country: country name in query.search
+/**
+ * Get the basic information of the country: country name in query.search
+ * @param query the object which contains the information to search
+ * @returns {Promise<unknown>}
+ */
 module.exports.getInfo = function (query){
 
     return new Promise(function (resolve,reject){
@@ -115,7 +128,12 @@ module.exports.getInfo = function (query){
     })
 }
 
-// Get the name and title of a country
+/**
+ * Get the name and title of a leader of a country
+ * @param query query the object which contains the information to search
+ * @param data the result we get from the last request. We join all the information together in one object.
+ * @returns {Promise<unknown>}
+ */
 module.exports.getLeaderInfo = function (query,data){
     return new Promise(function (resolve, reject){
         dbpediaAPI.dbpediaSPARQLGet('SELECT * WHERE {\n' +
@@ -147,7 +165,12 @@ module.exports.getLeaderInfo = function (query,data){
     })
 }
 
-// Get 10 largest city of a country
+/**
+ * Get 10 largest city of a country
+ * @param query the object which contains the information to search
+ * @param data the result we get from the last request. We join all the information together in one object.
+ * @returns {Promise<unknown>}
+ */
 module.exports.getCountryLargestCities = function (query, data) {
     return new Promise(function (resolve, reject) {
         wikidataAPI.wikidataSPARQLGet("SELECT DISTINCT %3FcityLabel %3Fcity %3Fpopulation  " +
@@ -176,7 +199,11 @@ module.exports.getCountryLargestCities = function (query, data) {
     })
 }
 
-// Get the details information of a city
+/**
+ * Get the details information of a city
+ * @param cityCode the code of the city in wikidata. For exemple Shanghai is Q8686
+ * @returns {Promise<unknown>}
+ */
 module.exports.getCityInfo = function (cityCode){
     return new Promise(function (resolve, reject){
         wikidataAPI.wikidataSPARQLGet("SELECT DISTINCT * " +
@@ -282,7 +309,11 @@ module.exports.getCityInfo = function (cityCode){
     })
 }
 
-// Get the last word of a url by splitting the '/'
+/**
+ * Get the last word of a url by splitting the '/'
+ * @param str the original url
+ * @returns {string} the last word
+ */
 function getLastWord(str){
     var listStrings = str.split('/')
     var lastString = listStrings[listStrings.length - 1]
@@ -294,7 +325,11 @@ function getLastWord(str){
     }
 }
 
-// Get the query of searching the 10 largest cities of a country(for async use)
+/**
+ * Get the query of searching the 10 largest cities of a country(for async use)
+ * @param query the object which contains the information to search
+ * @returns {string}
+ */
 module.exports.getCountryLargestCitiesQuery = function (query) {
     return "SELECT DISTINCT %3FcityLabel %3Fcity %3Fpopulation  " +
             "WHERE {  %3Fcountry rdfs:label \"" + util.countryNameDict(query.search) + "\"%40en. " +
@@ -306,7 +341,11 @@ module.exports.getCountryLargestCitiesQuery = function (query) {
             " ORDER BY DESC(%3Fpopulation) LIMIT 10"
 }
 
-// Handle the problem that the GDP of a country ends with lots of 0
+/**
+ * Handle the problem that the GDP of a country ends with lots of 0
+ * @param str the original number
+ * @returns {string|*} the new number in form of a string and added some words like billion behind
+ */
 function handleGdp(str){
     if(str.endsWith('000000000')){
         str = str.substring(0,str.length-9)

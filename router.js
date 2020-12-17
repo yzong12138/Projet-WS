@@ -4,7 +4,9 @@ var dbpediaAPI = require('./service/dbpediaAPI')
 var index = require('./Controller/index')
 var search = require('./Controller/search')
 
-// Trait the search path '/' for the index page
+/**
+ * Treat the search path '/' for the index page
+ */
 router.get('/',function (req,res,next){
     index.getAllList(next,function (data){
         res.render('index.html',{
@@ -14,7 +16,9 @@ router.get('/',function (req,res,next){
     })
 })
 
-// Trait the search path '/' for the Country page and also launch a request sparql
+/**
+ * Trait the search path '/' for the Country page and also launch a request sparql
+ */
 router.get('/searchquery',function (req,res,next){
     var query = req.query
 
@@ -40,7 +44,9 @@ router.get('/searchquery',function (req,res,next){
         })
 })
 
-// Trait the search path '/' for the City page and also launch a request sparql
+/**
+ * Trait the search path '/' for the City page and also launch a request sparql
+ */
 router.get('/searchqueryCity',function (req,res,next){
     var cityCode = req.query.citycode
     search.getCityInfo(cityCode)

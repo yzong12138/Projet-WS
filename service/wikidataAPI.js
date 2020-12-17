@@ -1,7 +1,11 @@
 var axios = require('axios')
 var endpointUrl = 'https://query.wikidata.org/sparql?query='
 
-
+/**
+ * Method to launch a request sparql in the DB wikidata
+ * @param str the request string(url which is not complete)
+ * @param callback the function callback
+ */
 exports.wikidataSPARQLGet = function (str, callback) {
     axios({
         method: "get",
